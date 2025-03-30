@@ -14,5 +14,6 @@ public class Cal {
     length=sc.nextDouble();
 
     System.out.println("Area of rectangle : "+width*length);
+    sc.close();
   }  
 }
