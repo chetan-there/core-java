@@ -51,7 +51,7 @@ class variable{
         double carprice=19999.99; 
 
         System.out.println("Your choice is a "+color+" "+model+" "+car);
-        System.out.println("The price of Mustand in currency $ "+carprice);
+        System.out.println("The price of Mustang in currency $ "+carprice);
         
         if (forSale) {
             System.out.println("The "+car+" is for sale ");
