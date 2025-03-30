@@ -56,12 +56,7 @@ public class UserInput {
      
      System.out.println("your roll favorite subject is "+subject);
 
-
-
-      sc.close();
-
-
-
+     sc.close();
 
     }
     
