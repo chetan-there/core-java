@@ -1,4 +1,4 @@
-package MAD_LIBS_GAME.MAD;
+package MAD_LIBS_GAME;
 
 import java.util.Scanner;
 
