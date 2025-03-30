@@ -29,21 +29,21 @@ class variable{
         char grades='A';
         System.out.println(grades);
 
-        boolean forSale=true;       
+        boolean forSale=false;       
         System.out.println(forSale);
 
         //use of boolean
-        if (forSale) {
-            System.out.println("for sale ");
-        }
-        else System.out.println("this is not for sale");
-
+       
         String name="chetan-there";
         String email="fake@gmial.com";
 
         System.out.println("hello "+name);  // this is known as concatination 
 
         System.out.println("your email is "+email);
+
+
+        //Example-carforsSale :
+
 
         String car="Mustang";
         String color="red";
@@ -52,14 +52,23 @@ class variable{
 
         System.out.println("Your choice is a "+color+" "+model+" "+car);
         System.out.println("The price of Mustand in currency $ "+carprice);
-
-
-
         
+        if (forSale) {
+            System.out.println("The "+car+" is for sale ");
+        }
+        else System.out.println("The "+car+" is not for sale");
 
+        //Example-voting 
+        int voterAge=20;
+        String voterName="Chetan";
 
-
-
+        if (voterAge>=18) 
+        {
+            System.out.println(voterName+"'s age is "+voterAge+" he is eligible for voting");   
+        }
+        else {
+            System.out.println(voterName+"'s age is "+voterAge+" he is not eligible for voting");
+        }
 
     }
 }
