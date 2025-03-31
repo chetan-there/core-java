@@ -12,9 +12,10 @@ package OOP.src.Constuctors;
         // Automatically called when an object is created.
         // Can be overloaded (multiple constructors in the same class).
         // If no constructor is defined, Java provides a default constructor.
+        // Java will decide which constructor to call based on parameters.
 
         // Types of Constructors in Java
-        
+
         // Default Constructor (No parameters)==Automatically called when an object is created.
 
         //Parameterized Constructor (With parameters)==Used to initialize values when an object is created.
