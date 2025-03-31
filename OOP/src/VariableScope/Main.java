@@ -2,7 +2,6 @@ package OOP.src.VariableScope;
 
 public class Main {
 
-
 public static void main(String [] args){
 
     //local = decleared inside a method 
