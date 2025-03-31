@@ -6,6 +6,8 @@ public class Human {
     int age;
     double weight;
 
+    //this is point to the current instance
+
      Human(String name,int age,double weight){
 
         this.name=name;
