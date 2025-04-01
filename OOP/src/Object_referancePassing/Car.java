@@ -1,4 +1,4 @@
-package OOP.src.ObjectPassing;
+package OOP.src.Object_referancePassing;
 
 public class Car {
     String name;  // Instance variable to store the car's name
