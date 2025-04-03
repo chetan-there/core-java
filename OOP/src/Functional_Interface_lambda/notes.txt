@@ -1,0 +1,62 @@
+introduction to Functional Programming ?  
+From JDK 8 onwards, Java also concentrated on function/method and introduced Functional 
+Programming. 
+ 
+It is mainly used to write concise coding so the length of the method will be reduced. 
+ 
+What is a Functional interface in java ?  
+If an interface contains exactly one abstract method then  
+that interface is known as Functional interafce. 
+ 
+Example :  
+public interface Drawable 
+{ 
+  void draw();  //SAM [Single abstract method] 
+} 
+ 
+ 
+It may contain 'n' number of default and static methods but It must contain only one abstract 
+method. 
+ 
+In order to restrict developer to take more than one abstract method, Java software people has 
+introduced @FunctionalInterface annotation. 
+ 
+Example : 
+@FunctionalInterface 
+interface Vehicle 
+{ 
+ void run();  
+}  
+package com.ravi.default_method; 
+ 
+@FunctionalInterface 
+interface Vehicle 
+{ 
+ void run();  
+} 
+public class MultipleInheritance  
+{ 
+ public static void main(String[] args)  
+ { 
+  Vehicle car = new Vehicle()  
+  {   
+   @Override 
+   public void run()  
+   { 
+    System.out.println("Car is Running");     
+   } 
+  }; 
+   
+  Vehicle bike = new Vehicle()  
+  {   
+   @Override 
+   public void run()  
+   { 
+    System.out.println("Bike is Running");     
+   } 
+  }; 
+   
+  car.run();  bike.run(); 
+ } 
+ 
+} 
