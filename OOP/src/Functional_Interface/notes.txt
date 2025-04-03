@@ -1,0 +1,66 @@
+What is functional interface in java ?
+
+if an interface contain exactly one abstract method than 
+that interface is known as Functional interface 
+
+Example :
+-----------
+
+public interface Drawable {
+    void draw();   //SAM(signle abstract method )
+}
+
+it may contain n number of static and default methods 
+but it must contain only one abstract method.
+
+in order to ristrct developer to make more than one abstract method 
+,java software people has introduced @FunctionalInhterface annotion
+
+Example 
+--------
+
+@FunctionalInhterface
+interface Vehicle {
+    void run();
+}
+
+@FunctionalInterface 
+interface Vehicle 
+{ 
+ void run();  
+} ------------------------------------------------------------- 
+package com.ravi.default_method; 
+ 
+@FunctionalInterface 
+interface Vehicle 
+{ 
+ void run();  
+} 
+public class MultipleInheritance  
+{ 
+ public static void main(String[] args)  
+ { 
+  Vehicle car = new Vehicle()  
+  {   
+   @Override 
+   public void run()  
+   { 
+    System.out.println("Car is Running");     
+   } 
+  }; 
+   
+  Vehicle bike = new Vehicle()  
+  {   
+   @Override 
+   public void run()  
+   { 
+    System.out.println("Bike is Running");     
+   } 
+  }; 
+   
+  car.run();  bike.run(); 
+ } 
+ 
+} 
+
+------------------------------------------------------------- 

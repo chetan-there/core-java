@@ -1,0 +1,26 @@
+What is lambda Expression in java ?
+
+it is a new feature introduces in java jdk 1.8 onwards.
+
+it is an anonymous function i.e function without any name 
+
+in java it is used to enable functional programing
+
+it is used to concise our code as well as can remove boilerplate code
+
+lambda will work only with Functional Interface
+
+if the body of lambda Expressionn contains only one statement then curly braces are optional
+
+we can also remove the variables type while defining the lambda expression parameter
+
+if the lambda expression method contains only one parameter then we can remove () symbol also.
+ 
+In lambda expression return keyword is optional but if we use return keyword then {} are 
+compulsory. 
+ 
+Independently Lamda Expression is not a statement. 
+ 
+It requires a target variable i.e functional interface reference only. 
+ 
+Lamda target can't be class or abstract class, it will work with functional interface only. 
