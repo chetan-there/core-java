@@ -1,5 +1,5 @@
 
-package com.ct.predefined_functional_interfaces;
+package OOP.src.Functional_Interface_lambda;
 
 public class generic_class {
 

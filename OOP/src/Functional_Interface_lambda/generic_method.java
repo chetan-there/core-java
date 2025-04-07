@@ -1,4 +1,4 @@
-package com.ct.predefined_functional_interfaces;
+package OOP.src.Functional_Interface_lambda;
 // T is the type parameter
 class Box<T> {
     private T value;
