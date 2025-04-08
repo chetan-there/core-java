@@ -1,0 +1,238 @@
+SUNDAY COMMON TOPIC :
+----------------------
+1) Object class and its method (11 Methods , 4 methods)
+2) Nested class OR Inner class in Java 
+3) Enum in Java
+4) Input/Output and File Handling
+
+Object class and Methods :
+--------------------------
+Object is the super class for all the classes we have in java.
+
+We can override (non final methods) the methods of Object class to sub classes.
+
+Example :
+
+public class Ravi
+{
+  //Here we can override the methods of Object class but non final methods
+}
+
+Object class contains total 11 methods.
+
+Whenever we create an Object in java, due to constructor chaining, first of all Object class Constructor will be executed, Actually the execution of non static members will not be started without executing 
+this Object class Constructor.
+
+class Super
+{
+	public Super(String name)
+	{
+		System.out.println(name);
+	}	
+}
+class Sub extends Super
+{
+	public Sub()
+	{
+		super(getName());
+	}
+	
+	public String getName()
+	{
+		return "Scott";
+	}	
+}
+
+public class ObjectClassConstructor 
+{
+	public static void main(String[] args) 
+	{
+		new Sub();
+	}
+}
+
+Note : It will generate CE becoz Object class constructor is not executed so we can't start the execution of non static member.
+-----------------------------------------------------------------------
+If we declare the getName() method as static method then the program will be executed becoz static members are loaded at the time of class loading.
+
+class Super
+{
+	public Super(String name)
+	{
+		System.out.println(name);
+	}	
+}
+class Sub extends Super
+{
+	public Sub()
+	{
+		super(getName());
+	}
+	
+	public static String getName()
+	{
+		return "Scott";
+	}	
+}
+
+public class ObjectClassConstructor 
+{
+	public static void main(String[] args) 
+	{
+		new Sub();
+	}
+}
+-----------------------------------------------------------------------
+Working with Object class Methdos :
+-----------------------------------
+1) public final native Class getClass() :
+-----------------------------------------
+getClass() is a predefined non static method of Object class.
+
+It is used to provide runtime information of the class that means it will provide class keyword + Fully Qualified Name (Package Name + Class Name)
+
+The return type of this method is java.lang.Class so further we can call the method of java.lang.Class class by using method Chaining.
+java.lang.Class class has provided getName() method which will return Fully Qualified Name in String format.
+
+
+package com.ravi.object_class_methods;
+
+class Test
+{
+	
+}
+
+public class GetClassDemo1 
+{
+	public static void main(String[] args) 
+	{
+		Test t1 = new Test();
+		Class cls = t1.getClass();
+		System.out.println(cls); //class keyword + Fully Qualified Name
+
+	}
+
+}
+----------------------------------------------------------------------
+package com.ravi.abstract_demo;
+
+public class Ravi {
+
+}
+
+
+package com.ravi.object_class_methods;
+
+import com.ravi.abstract_demo.Ravi;
+
+public class GetClassDemo2
+{
+	public static void main(String[] args)
+	{
+		Ravi ravi = new Ravi();
+		String name = ravi.getClass().getName();
+        System.out.println(name); //FQN
+		
+	}
+
+}
+---------------------------------------------------------------------
+public native int hashCode() :
+------------------------------
+It is a predefined non static method of Object class.
+
+It is used to calculate the hash code of the Object and returns an integer value.
+
+It is not meant for Object compariosn (For Object Compariosn we have equals() method) It is used to find the bucket location in the Hashtable data structure while working with Map collection.
+
+There is a contract between equals and hashcode method, Actually we should always override both the methods in the sub classes for Object comparison.
+
+The contract says : "If two objects are having same hashcode then the object may be same or may be different but if two objects are same by using equals(Object obj) method then the hashcode of the both the objects must be same "
+
+//Program on hashCode :
+------------------------
+package com.ravi.object_class_methods;
+
+import java.util.Objects;
+
+class Demo
+{		
+	
+}
+public class HashCodeDemo1 
+{
+	public static void main(String[] args) 
+	{
+		Demo d1 = new Demo();
+		Demo d2 = new Demo();
+		Demo d3 = d2;
+	
+		System.out.println(d1.hashCode());
+		System.out.println(d2.hashCode());
+		System.out.println("..............");
+		System.out.println(d2.hashCode() +" : "+d3.hashCode());
+	}
+
+}
+----------------------------------------------------------------------
+public String toString() :
+--------------------------
+It is a predefined non static method of Object class.
+
+Actually it is "String representation of the Object" that means the Object we can represent in String format so it is easy to read the 
+concise information for any person.
+
+It is recommended to override this method in the sub class to print the Object properties.
+
+The logic written by java inside toString() method is :
+
+public String toString()
+{
+   return getClass().getName()+"@"+ Integer.toHexString(hashCode());
+}
+
+//Programs
+
+package com.ravi.object_class_methods;
+
+class Foo
+{
+	@Override
+	public String toString()
+	{
+		return "Batch 42";
+	}
+}
+
+public class ToStringDemo1 {
+
+	public static void main(String[] args) 
+	{
+		Foo f1 = new Foo();
+		System.out.println(f1);
+
+	}
+
+}
+---------------------------------------------------------------------
+package com.ravi.object_class_methods;
+
+class Sample
+{
+	{
+		System.out.println("NSB");
+		System.out.println(this);
+	}
+	
+}
+public class ToStringDemo2 
+{
+	public static void main(String[] args) 
+	{
+		Sample s1 = new Sample();
+		System.out.println(s1); 		
+	}
+}
+----------------------------------------------------------------------
+public boolean equals(Object obj) :
+------------------------------------
