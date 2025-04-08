@@ -1,10 +1,11 @@
-Working with predefined functional interfaces :
------------------------------------------------
-In order to work with day to day programming and to write concise coding, java has provided predefined functional interafces which are available in java.util.function sub package.
-
-
+Here’s your updated and fully structured note on predefined functional interfaces in Java, now including the method name used in each interface (like test(), apply(), etc.). This will make your learning clearer and more complete.
+________________________________________
+🌟 Working with Predefined Functional Interfaces in Java
+Java provides several ready-to-use functional interfaces in the java.util.function package to support concise and expressive functional programming using lambda expressions.
+________________________________________
 1) Predicate
 •	Use: To test a condition (returns true or false)
+•	Method Used: test(T t)
 •	Return Type: boolean
 // Traditional way
 Predicate<String> isLong = new Predicate<String>() {
@@ -17,7 +18,8 @@ Predicate<String> isLong = new Predicate<String>() {
 Predicate<String> isLong = str -> str.length() > 5;
 ________________________________________
 2) Consumer
-•	Use: Performs an operation on a single input, no return
+•	Use: Performs an action on the given input
+•	Method Used: accept(T t)
 •	Return Type: void
 // Traditional way
 Consumer<String> print = new Consumer<String>() {
@@ -30,7 +32,8 @@ Consumer<String> print = new Consumer<String>() {
 Consumer<String> print = str -> System.out.println(str);
 ________________________________________
 3) Function<T, R>
-•	Use: Takes input of type T, returns result of type R
+•	Use: Takes an input of type T and returns a result of type R
+•	Method Used: apply(T t)
 •	Return Type: R
 // Traditional way
 Function<String, Integer> getLength = new Function<String, Integer>() {
@@ -43,7 +46,8 @@ Function<String, Integer> getLength = new Function<String, Integer>() {
 Function<String, Integer> getLength = str -> str.length();
 ________________________________________
 4) Supplier
-•	Use: Supplies a result without input
+•	Use: Supplies a result without any input
+•	Method Used: get()
 •	Return Type: T
 // Traditional way
 Supplier<String> supply = new Supplier<String>() {
@@ -56,7 +60,8 @@ Supplier<String> supply = new Supplier<String>() {
 Supplier<String> supply = () -> "Hello";
 ________________________________________
 5) BiPredicate<T, U>
-•	Use: Test condition with two inputs
+•	Use: Tests a condition on two inputs
+•	Method Used: test(T t, U u)
 •	Return Type: boolean
 // Traditional way
 BiPredicate<Integer, Integer> isSumEven = new BiPredicate<Integer, Integer>() {
@@ -69,7 +74,8 @@ BiPredicate<Integer, Integer> isSumEven = new BiPredicate<Integer, Integer>() {
 BiPredicate<Integer, Integer> isSumEven = (a, b) -> (a + b) % 2 == 0;
 ________________________________________
 6) BiConsumer<T, U>
-•	Use: Takes two inputs and performs action, no return
+•	Use: Takes two inputs and performs some operation
+•	Method Used: accept(T t, U u)
 •	Return Type: void
 // Traditional way
 BiConsumer<String, Integer> printData = new BiConsumer<String, Integer>() {
@@ -82,7 +88,8 @@ BiConsumer<String, Integer> printData = new BiConsumer<String, Integer>() {
 BiConsumer<String, Integer> printData = (name, age) -> System.out.println(name + " is " + age + " years old.");
 ________________________________________
 7) BiFunction<T, U, R>
-•	Use: Takes two inputs, returns one output
+•	Use: Takes two inputs and returns a result
+•	Method Used: apply(T t, U u)
 •	Return Type: R
 // Traditional way
 BiFunction<Integer, Integer, Integer> add = new BiFunction<Integer, Integer, Integer>() {
@@ -95,7 +102,8 @@ BiFunction<Integer, Integer, Integer> add = new BiFunction<Integer, Integer, Int
 BiFunction<Integer, Integer, Integer> add = (a, b) -> a + b;
 ________________________________________
 8) UnaryOperator
-•	Use: Like Function<T, T> (same input and output)
+•	Use: A Function where input and output are of same type
+•	Method Used: apply(T t)
 •	Return Type: T
 // Traditional way
 UnaryOperator<String> toUpper = new UnaryOperator<String>() {
@@ -108,7 +116,8 @@ UnaryOperator<String> toUpper = new UnaryOperator<String>() {
 UnaryOperator<String> toUpper = str -> str.toUpperCase();
 ________________________________________
 9) BinaryOperator
-•	Use: Like BiFunction<T, T, T> (same type for both inputs and output)
+•	Use: A BiFunction where input and output are of same type
+•	Method Used: apply(T t1, T t2)
 •	Return Type: T
 // Traditional way
 BinaryOperator<Integer> multiply = new BinaryOperator<Integer>() {
@@ -121,7 +130,8 @@ BinaryOperator<Integer> multiply = new BinaryOperator<Integer>() {
 BinaryOperator<Integer> multiply = (a, b) -> a * b;
 ________________________________________
 10) ToIntFunction
-•	Use: Takes T, returns int
+•	Use: Takes input of type T and returns int
+•	Method Used: applyAsInt(T t)
 •	Return Type: int
 // Traditional way
 ToIntFunction<String> length = new ToIntFunction<String>() {
@@ -134,7 +144,8 @@ ToIntFunction<String> length = new ToIntFunction<String>() {
 ToIntFunction<String> length = str -> str.length();
 ________________________________________
 11) ToLongFunction
-•	Use: Takes T, returns long
+•	Use: Takes input of type T and returns long
+•	Method Used: applyAsLong(T t)
 •	Return Type: long
 // Traditional way
 ToLongFunction<String> lengthLong = new ToLongFunction<String>() {
@@ -147,7 +158,8 @@ ToLongFunction<String> lengthLong = new ToLongFunction<String>() {
 ToLongFunction<String> lengthLong = str -> str.length();
 ________________________________________
 12) ToDoubleFunction
-•	Use: Takes T, returns double
+•	Use: Takes input of type T and returns double
+•	Method Used: applyAsDouble(T t)
 •	Return Type: double
 // Traditional way
 ToDoubleFunction<String> toDouble = new ToDoubleFunction<String>() {
@@ -159,4 +171,5 @@ ToDoubleFunction<String> toDouble = new ToDoubleFunction<String>() {
 // Lambda way
 ToDoubleFunction<String> toDouble = str -> Double.parseDouble(str);
 ________________________________________
+
 
