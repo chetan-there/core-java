@@ -18,8 +18,8 @@ How to generate a random Number :
     }
 
 }
------------------------------------------------------------------------
-package com.ravi.lambda;
+package OOP.src.SENARIO_BASED_PROGRAM.src.lambda_day1;
+
 
 import java.util.Random;
 import java.util.function.Supplier;
