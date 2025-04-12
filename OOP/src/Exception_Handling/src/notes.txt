@@ -57,3 +57,10 @@ catch block
 finally block
 •	Always executes (except in case of System.exit(0))
 Used to close resources
+6. Throw and Throws
+throw
+•	Used to throw exception explicitly
+throw new ArithmeticException("Divide by zero");
+throws
+•	Declares that method might throw exception
+public void show() throws IOException
