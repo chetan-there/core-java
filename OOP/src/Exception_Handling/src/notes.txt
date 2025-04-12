@@ -1,0 +1,7 @@
+1. Introduction to Exception Handling
+•	Exception: Abnormal or unexpected situation during the normal execution of a program.
+•	Occurs: Always at runtime.
+•	Effect: Interrupts program execution and may terminate it.
+Causes of Exceptions
+1.	Wrong input by the user
+2.	Dependency between program parts
