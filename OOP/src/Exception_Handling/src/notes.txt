@@ -87,3 +87,5 @@ Unchecked
 10. Nested try-catch
 •	try inside another try block
 •	Inner try is skipped if outer try fails before reaching it
+11. try-catch-finally with return
+•	Return in finally block overrides try or catch return
