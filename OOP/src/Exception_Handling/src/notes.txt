@@ -34,3 +34,7 @@ System.out.println(str.substring(-2,5));
 FullyQualifiedName: errorMessage
 Example:
 java.lang.ArithmeticException: / by zero
+4. Exception Format
+FullyQualifiedName: errorMessage
+Example:
+java.lang.ArithmeticException: / by zero
