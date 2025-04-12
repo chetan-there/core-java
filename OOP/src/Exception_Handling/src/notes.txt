@@ -72,3 +72,12 @@ try (Scanner sc = new Scanner(System.in)) {
 }
 Conditions
 •	Resource must implement AutoCloseable or Closeable
+8. Checked vs Unchecked Exceptions
+Checked
+•	Common exceptions
+•	Must be handled or declared
+•	Subclasses of Exception (excluding RuntimeException)
+Unchecked
+•	Rare exceptions
+•	Handling not mandatory
+•	Subclasses of RuntimeException or Error
