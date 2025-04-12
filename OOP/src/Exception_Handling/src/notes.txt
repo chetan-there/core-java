@@ -38,3 +38,22 @@ java.lang.ArithmeticException: / by zero
 FullyQualifiedName: errorMessage
 Example:
 java.lang.ArithmeticException: / by zero
+5. try-catch-finally Structure
+Keywords
+1.	try
+2.	catch
+3.	finally
+4.	throw
+5.	throws
+Rules
+•	try must be followed by either catch or finally or both
+•	No statement is allowed between try and catch
+try block
+•	Traces code line by line
+•	On exception, creates Exception object and passes it to nearest catch block
+catch block
+•	Handles exception
+•	Executes only if exception occurs in try block
+finally block
+•	Always executes (except in case of System.exit(0))
+Used to close resources
