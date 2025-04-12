@@ -5,3 +5,25 @@
 Causes of Exceptions
 1.	Wrong input by the user
 2.	Dependency between program parts
+2. Common Exceptions in Java
+1. ArithmeticException
+int x = 100;
+int y = 0;
+int z = x / y; // java.lang.ArithmeticException
+2. ArrayIndexOutOfBoundsException
+int[] arr = {10, 20, 30};
+System.out.println(arr[3]);
+3. NegativeArraySizeException
+int[] arr = new int[-10];
+4. NumberFormatException
+String str = "h";
+int x = Integer.parseInt(str);
+5. NullPointerException
+String str = null;
+System.out.println(str.length());
+6. InputMismatchException
+Scanner sc = new Scanner(System.in);
+double salary = sc.nextDouble(); // if input is not a double, throws exception
+7. StringIndexOutOfBoundsException
+String str = "hyderabad";
+System.out.println(str.substring(-2,5));
