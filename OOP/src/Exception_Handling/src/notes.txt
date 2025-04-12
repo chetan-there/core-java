@@ -89,3 +89,16 @@ Unchecked
 •	Inner try is skipped if outer try fails before reaching it
 11. try-catch-finally with return
 •	Return in finally block overrides try or catch return
+12. User-defined Exceptions
+Checked Example
+class InvalidAgeException extends Exception {
+    public InvalidAgeException(String msg) {
+        super(msg);
+    }
+}
+Unchecked Example
+class GreaterMarksException extends RuntimeException {
+    public GreaterMarksException(String msg) {
+        super(msg);
+    }
+}
