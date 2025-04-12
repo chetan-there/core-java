@@ -84,3 +84,6 @@ Unchecked
 9. Exception Propagation
 •	If method doesn’t handle exception, it is passed to the caller
 •	If none handle it, JVM terminates the program
+10. Nested try-catch
+•	try inside another try block
+•	Inner try is skipped if outer try fails before reaching it
