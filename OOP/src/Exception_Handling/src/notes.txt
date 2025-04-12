@@ -64,3 +64,11 @@ throw new ArithmeticException("Divide by zero");
 throws
 •	Declares that method might throw exception
 public void show() throws IOException
+7. try with Resources
+•	Introduced in Java 7
+•	Automatically closes resources
+try (Scanner sc = new Scanner(System.in)) {
+    // use scanner
+}
+Conditions
+•	Resource must implement AutoCloseable or Closeable
