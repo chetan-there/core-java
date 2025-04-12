@@ -30,3 +30,7 @@ System.out.println(str.substring(-2,5));
 3. Exception Hierarchy
 •	Exception and Error are subclasses of Throwable
 •	Developers handle exceptions, system admins handle errors
+4. Exception Format
+FullyQualifiedName: errorMessage
+Example:
+java.lang.ArithmeticException: / by zero
