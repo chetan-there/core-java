@@ -81,3 +81,6 @@ Unchecked
 •	Rare exceptions
 •	Handling not mandatory
 •	Subclasses of RuntimeException or Error
+9. Exception Propagation
+•	If method doesn’t handle exception, it is passed to the caller
+•	If none handle it, JVM terminates the program
