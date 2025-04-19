@@ -1,0 +1,1568 @@
+Exception Handling :
+--------------------
+An exception is an abnormal situation OR un-expected situation in a normal execution flow.
+
+Due to an exception, the execution of the program will be disturbed first and then terminated permanently.
+
+Exception always encounter at runtime only.
+
+Exception encounter due to the following reasons :
+
+  1) The Wrong input given by the user.
+  2) Due to dependency, When one part of the program is dependent to another part to complete the task then there might be a chance of getting an exception. 
+  
+Different Criteria for Exception :
+-----------------------------------
+1) java.lang.ArithmeticException :
+----------------------------------
+If we divide a number by zero (an int value) then at runtime we will get an exception i.e java.lang.ArithmeticException 
+
+                  int x = 18; 
+		  int y = 0; 
+		  int z = x/y;
+  
+2) java.lang.ArrayIndexOutOfBoundException :
+---------------------------------------------
+ If we try to access the index of an array which is not available then we will get java.lang.ArrayIndexOutOfBoundsException 
+  
+  int []arr = {10,20};
+  System.out.println(arr[3]);
+  
+3) java.lang.NumberFormatException
+-----------------------------------
+If we try to convert the String into corresponding int(primitive) OR Wrapper(Integer) and if the String is not in a numeric format then we will get runtime exception i.e java.lang.NumberFormatException. 
+
+Case 1:
+-------
+String str = "NIT";
+int val = Integer.parseInt(str);
+System.out.println(val);
+  
+Case 2:
+--------
+String str = "India";
+Integer val = Integer.valueOf(str);
+System.out.println(val);  
+  
+4) java.lang.NullPointerException :
+-----------------------------------
+If any reference variable is pointing to null and by using the reference variable we are calling any non static field OR non static method then we will get java.lang.NullPointerException.
+
+Case 1 :
+--------
+String str = null;
+System.out.println(str.toUpperCase());
+
+Case 2 :
+---------
+String s1 = "null";
+System.out.println(s1.length());
+System.out.println(s1.toUpperCase());
+
+Case 3 :
+---------
+Scanner sc = new Scanner(System.in);
+System.out.println("Enter a String value :");
+String s1 = sc.nextLine(); //"null"
+System.out.println(s1.length()); //4
+
+5) java.lang.NegativeArraySizeException
+---------------------------------------
+Whenever we create an array, the size of the array must be positive
+integer only otherwise we will get java.lang.NegativeArraySizeException
+
+int []arr = new int[-12];
+
+6) java.lang.StringIndexOutOfBoundsException 
+---------------------------------------------
+If we try to access the String index (String is character array) but if the index is out of the range then we will get 
+java.lang.StringIndexOutOfBoundsException 
+
+String str = "Hyderabad";
+System.out.println(str.substring(2,-5)); 
+
+Note : ArrayIndexOutOfBoundsException class StringIndexOutOfBoundsException class both are sub class of java.lang.IndexOutOfBoundsException.
+
+
+7) java.util.InputMismatchException :
+-------------------------------------
+While reading the value using Scanner class, We should always read 
+appropriate value other we will get java.util.InputMismatchException
+
+Scanner sc = new Scanner(System.in);
+System.out.println("Enter a number :");
+int num = sc.nextInt(); //If we don't read int value then exception
+System.out.println(num); 
+=======================================================================
+Exception Hierarchy :
+---------------------
+Paint Digram [10th April]
+
+Note :- As a developer we are responsibe to handle the Exception. System admin is responsibe to handle the error because we cannot recover from error.
+----------------------------------------------------------------------
+Q) WAP to show that Exception is the super class of all types of 
+   Exception whether it is checked Or unchecked
+
+Ans : From the Exception Hierarchy, It is clear that java.lang.Exception is the super class for all type of Exception whether it is checked OR Unchecked.
+
+package com.ravi.exception_demo;
+
+import java.io.IOException;
+
+public class ExceptionDemo 
+{
+	public static void main(String[] args)
+	{
+		Exception e1 = new ArithmeticException();
+		System.out.println(e1);
+		
+		Exception e2 = new ArrayIndexOutOfBoundsException();
+		System.out.println(e2);
+		
+                Exception e3 = new IOException();
+                System.out.println(e3);		
+	}
+
+}
+-----------------------------------------------------------------------
+What is Exception Format ?
+---------------------------
+Whenever we print any Exception Object then the by default format is :
+FUlly Qualified Name : error Message
+
+Example :
+
+Exception e1 = new ArithmeticException("My error message");
+System.out.println(e1.toString());	
+
+java.lang.ArithmeticException:My error message
+-----------------------------------------------------------------------
+WAP that desribes, whenever an exception is encounter in the 
+program then our program will be terminated abnormally (halt in the middle)
+
+package com.ravi.exception_demo;
+
+import java.util.Scanner;
+
+public class AbnormalTermination {
+
+	public static void main(String[] args) 
+	{
+		System.out.println("Main Method started..");
+		Scanner sc = new Scanner(System.in);
+		System.out.print("Enter the value of x :");
+		int x = sc.nextInt();
+		System.out.print("Enter the value of y :");
+		int y = sc.nextInt();
+		
+		int result = x /y;
+		System.out.println("Result is :"+result);
+		System.out.println("Main Method ended..");
+		sc.close();		
+	}
+
+}
+
+In the above progran, If we put the value of y as 0 then the program will halt in the middle which is known as abnormal termination.
+
+By default, JVM has default exception handler which will handle the 
+execption, terminate the program in the middle (abnormal termination)
+and generate the exception message.
+-----------------------------------------------------------------------
+11-04-2025
+----------
+In order to handle the exception and to work with exception. Java software people has provided the following keywords :
+
+1) try block
+2) catch block
+3) finally block [Java 1.7V, try with resourses]
+4) throw keyword
+5) throws keyword
+
+
+try block :
+-----------
+Whenever our statement is error suspecting statement OR Risky statement then we should write that statement inside the try block.
+
+try block must be followed either by catch block or finally block or both.
+
+*try block is responsible to trace our code line by line, if any execption is encountered then with the help of JVM, TRY BLOCK WILL CREATE APPROPRIATE EXECPTION OBJECT, AND THROW THIS EXCEPTION OBJECT to the nearest catch block.
+
+After the execption in the try block, the remaining code of try block will not be executed because control will directly transfer to the catch block.
+
+In between try and catch block we cannot write any kind of statement.
+
+catch block :
+--------------
+The main purpose of catch block to handle the exception which is thrown by try block.
+
+catch block will only executed if there is an exception in the try block.
+-----------------------------------------------------------------------
+package com.ravi.exception;
+
+import java.util.Scanner;
+
+public class TryDemo {
+
+	public static void main(String[] args)
+	{
+		 System.out.println("Main method Started!!!");
+					
+		   Scanner sc = null;
+			try
+			{
+				sc = new Scanner(System.in);
+				System.out.print("Enter the value of x :");
+				int x = sc.nextInt();
+				
+				System.out.print("Enter the value of y :");
+				int y = sc.nextInt();
+				
+				int result = x/y;
+				
+				System.out.println("Result is :"+result);
+				System.out.println("End of try block");
+			}
+			catch(Exception e)
+			{
+				System.out.println("Inside Catch block");
+				System.err.println(e);
+			}			
+			System.out.println("Main method Completed!!!");
+			sc.close();
+	}
+
+}
+
+In the above program if we put the value of y as 0 but still program will be executed normally because we have used try-catch so it is a 
+normal termination even we have an exception in the program.
+-----------------------------------------------------------------------
+In case on any Exception in the try block, try block is responsible to create (with the help of JVM) exception object and throw the exception object to the nearest catch block but user can also explicitly create and throw the Exception object as shown below.
+
+public class TryDemo 
+{
+	public static void main(String[] args) 
+	{
+		try
+		{
+		   throw new ArithmeticException();
+		   //System.out.println(10/0);
+		}
+		catch(Exception e)
+		{
+			System.out.println("Catch Block");
+			System.err.println(e);
+		}
+		
+		System.out.println("Main Completed");
+	}
+}
+
+
+After throw keyword we can't write any kind of statement, It 
+will become un-reachable code. 
+----------------------------------------------------------------------
+package com.ravi.exception;
+
+class Demo extends Throwable
+{
+	public Demo(String errorMessage)
+	{
+		super(errorMessage);
+	}
+}
+
+public class ThrowableException
+{
+	public static void main(String[] args)
+	{
+		try
+		{
+		   throw new Demo("demo error");	
+		}
+		catch(Throwable e)
+		{
+			System.err.println(e.toString());
+		}
+	}
+
+}
+
+Note : If our Demo class does not extend from any of the Exception class OR Throwable class then this Demo Object is not a Throwable type of object hance we can't use throw keyword.
+-----------------------------------------------------------------------
+Without Exception Handling, If exception = Abnormal termination.
+With Exception Handling, If exception = Normal Termination.
+
+The actual use of Exception Handling :
+--------------------------------------
+ The main purpose of exception handling to provide user-friendly message so client can enjoy the services of software/websites.   
+
+Exception handlinag = No Abnormal Termination + User-friendly message on wrong input given by the client.
+
+package com.ravi.exception;
+
+import java.util.Scanner;
+
+public class CustomerDemo 
+{
+	public static void main(String[] args) 
+	{
+		System.out.println("Hello Client, Welcome to my Application :");
+		Scanner sc = new Scanner(System.in);
+		
+		try
+		{
+			System.out.print("Please enter the value of x :");
+			int x = sc.nextInt();
+			System.out.print("Please enter the value of y :");
+			int y = sc.nextInt();
+			
+			int result = x /y;
+			System.out.println("Result is :"+result);
+		}
+		catch(Exception e)
+		{
+			System.err.println("Please don't put zero here");
+		}
+		sc.close();
+		System.out.println("Thank you Client, Please Visit Again!!");
+	}
+
+}
+----------------------------------------------------------------------
+12-04-2025
+-----------
+Working with predefined non static method of Throwable class :
+---------------------------------------------------------------
+Throwable class has provided the following methods :
+----------------------------------------------------
+Throwable class has provided the following three methods :
+
+1) public String getMessage() :- It will provide only error message.
+
+2) public void printStackTrace() :-  It will provide the complete details regarding exception like exception class name, exception error message, exception class location, exception method name and exception line number.
+
+3) public String toString() :- It will convert the throwable into String representation.
+
+package com.ravi.exception;
+
+public class ThrowableMethod {
+
+	public static void main(String[] args) 
+	{
+		try
+		{
+			throw new ArithmeticException("Divide by zero"); 
+		}
+		catch(Exception e)
+		{
+			System.out.println(e.getMessage()); 
+			System.out.println("===============");
+			e.printStackTrace();
+			System.out.println("===============");
+			System.out.println(e.toString());
+		}
+	}
+
+}
+-----------------------------------------------------------------------
+Working with Specific Exception :
+---------------------------------
+While working with exception, in the corresponding catch block we can take Exception (super class) which can handle any type of Exception.
+
+On the other hand we can also take specific type of exception (ArithmetiException, InputMismatchException and so on) which will handle only one type i.e specific type of exception.
+
+package com.ravi.basic;
+
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+public class SpecificException 
+{
+	public static void main(String[] args) 
+	{
+       System.out.println("Main started");
+		
+		Scanner sc = new Scanner(System.in);
+		
+		try
+		{			
+			System.out.print("Enter your Roll :");
+			int roll = sc.nextInt();  
+			System.out.println("Your Roll is :"+roll);
+			
+		}
+		catch(InputMismatchException e)
+		{
+			e.printStackTrace();
+		}		
+		sc.close();
+		System.out.println("Main ended");
+	}
+}
+----------------------------------------------------------------------
+
+public class TryDemo 
+{
+	public static void main(String[] args) 
+	{
+		try
+		{
+		   throw new Error();
+		}
+		catch (Exception e)
+		{
+			System.out.println("Inside Catch Block");
+			e.printStackTrace();
+		}
+	}
+}
+
+Note : Here catch(Exception e) block is unable to handle because Error and Exception both are sub classes of Throwable, In the catch block
+if we use Error OR Throwable then only catch block will handle.
+-----------------------------------------------------------------------
+Working with Infinity and Not a number(NaN) :
+---------------------------------------------
+Working with Infinity and Not a number(NaN) :
+---------------------------------------------
+10/0    -> Infinity (Java.lang.ArithmeticException)
+10/0.0  -> Infinity  (POSITIVE_INFINITY)
+
+0/0     -> Undefined (Java.lang.ArithmeticException)
+0/0.0   -> Undefined  (NaN)
+
+While dividing a number with Integral literal in both the cases i.e Infinity (10/0) and Undefined (0/0) we will get java.lang.ArithmeticException because java software people has not provided any final, static variable support to deal with Infinity and Undefined.
+
+On the other hand while dividing a number with with floating point literal in the both cases i.e Infinity (10/0.0) and Undefined (0/0.0) we have final, static variable support so the program will not be terminated in the middle which are as follows
+
+10/0.0 = POSITIVE_INFINITY
+-10/0.0 = NEGATIVE_INFINITY
+0/0.0 = NaN
+
+java.lang.Float and java.lang.Double classes are provided the support for these final and static variable, the same OR same type of variables are not available in Integeral Literal classes.
+
+package com.ravi.basic;
+
+public class InfinityFloatingPoint 
+{	
+	public static void main(String[] args) 
+	{
+	   System.out.println("Main Started");
+	   System.out.println(10/0.0); 
+	   System.out.println(-10/0.0); 
+	   System.out.println(0/0.0);
+	   System.out.println(10/0); 
+	   System.out.println("Main Ended");
+	}
+
+}
+----------------------------------------------------------------------
+Working with multiple try catch :
+---------------------------------
+According to our application requirement we can provide multiple try-catch in my application to work with multiple execptions.
+
+Example :
+
+try
+{
+}
+catch(X e)
+{
+}
+
+try
+{
+}
+catch(X e)
+{
+}
+
+try
+{
+}
+catch(X e)
+{
+}
+
+//Program :
+-----------
+package com.ravi.basic;
+public class MultipleTryCatch 
+{
+	public static void main(String[] args) 
+	{
+	  System.out.println("Main method started!!!!");
+	  
+	  try
+	  {
+		  int arr[] = {10,20,30};
+		  System.out.println(arr[3]);
+	  }
+	  catch(ArrayIndexOutOfBoundsException e)
+	  {
+		  System.err.println("Array index is out of limit!!!");
+	  }
+	  
+	  try
+	  {
+		 String str = null;
+		 System.out.println(str.length());
+	  }
+	  catch(NullPointerException e)
+	  {
+		  System.err.println("ref variable is pointing to null");
+	  } 
+	  
+	  System.out.println("Main method ended!!!!");	
+	}
+}
+
+Note : In the above program the drawback is, Client will get all the error messages at once which is not a recommended way.
+
+In order to avoid this drawback we introduced multiple catch blocks with single try.
+-----------------------------------------------------------------------
+Multiple catch block with a single try block :
+-----------------------------------------------
+According to industry standard we should write try with multiple catch blocks so we can provide proper information for each and every exception to the end user.
+
+While working with multiple catch block always the super class catch block must be last catch block.
+
+From java 1.7v this multiple exceptions we can write in a single catch block by using | symbol.
+
+If try block is having more than one exception then always try block will entertain only first exception because control will transfer to the nearest catch block.
+-----------------------------------------------------------------------
+package com.ravi.basic;
+public class MultyCatch 
+{
+	public static void main(String[] args) 
+	{
+		System.out.println("Main Started...");		
+		try
+		{
+			int c = 10/0;			
+			System.out.println("c value is :"+c);	
+			
+			int []x = {12,78,56};
+			System.out.println(x[4]);		
+		}
+			
+		catch(ArrayIndexOutOfBoundsException e1)
+		{
+			System.err.println("Array is out of limit...");
+		}
+		catch(ArithmeticException e1)
+		{
+			System.err.println("Divide By zero problem...");
+		}
+		catch(Exception e1)
+		{
+			System.out.println("General");
+		}									
+		System.out.println("Main Ended...");
+	}
+}
+-----------------------------------------------------------------------
+package com.ravi.basic;
+
+public class MultyCatch1 
+{
+	public static void main(String[] args) 
+	{
+		System.out.println("Main method started!!!");
+		try
+		{
+		   String str1 = "null";
+		   System.out.println(str1.toUpperCase()); //NULL
+		   
+		   String str2 = "Ravi";
+		   int x = Integer.parseInt(str2);
+		   System.out.println("Number is :"+x);
+		}
+		catch(NumberFormatException  | NullPointerException  e)
+		{
+		  if(e instanceof NumberFormatException)
+		  {
+			  System.err.println("Number is not in a proper format");
+		  }
+		  else if(e instanceof NullPointerException)
+		  {
+			  System.err.println("ref variable is pointing to null");
+		  }
+		}
+
+		System.out.println("Main method ended!!");
+	}
+
+}
+----------------------------------------------------------------------
+14-04-2025
+----------
+finally block : [Guarantted for execution regardless of Excption]
+------------------------------------------------------------------
+finally is a block which is meant for Resource handling purposes.
+
+According to Software Engineering, the resources are memory creation, buffer creation, opening of a database, working with files, working with network resourses and so on hence these resourses must be closed properly.
+
+Whenever the control will enter inside the try block always the finally block would be executed.
+
+We should write all the closing statements inside the finally block because irrespective of exception finally block will be executed every time.
+
+If we use the combination of try and finally then only the resources will be handled but not the execption, on the other hand if we use try-catch and finally then execption and resourses both will be handled.
+
+finally block will not be executed in the following 2 cases :
+
+ 1) If we write System.exeit(0) and if this statement is executed in the try block.
+ 
+ 2) If we have infinite loop in the try block.
+
+-----------------------------------------------------------------------
+package com.ravi.basic;
+
+public class FinallyBlock 
+{
+	public static void main(String[] args) 
+	{
+		System.out.println("Main method started");
+		try
+		{				
+			System.out.println(10/0);
+			System.exit(0);
+		}		
+		finally
+		{	
+			System.out.println("Finally Block");
+		}
+		
+		System.out.println("Main method ended");
+	}
+
+}
+
+Note :- In the above program finally block will be executed, even we have an exception in the try block but here only the resourses will be handled but not the exception.
+-----------------------------------------------------------------------
+package com.ravi.basic;
+
+public class FinallyWithCatch 
+{
+	public static void main(String[] args) 
+	{		
+		try
+		{			
+		    int []x = new int[-2];	
+		    x[0] = 12;
+		    x[1] = 15;
+		    System.out.println(x[0]+" : "+x[1]);	   
+		   
+		}
+		catch(NegativeArraySizeException e)
+		{		
+			System.err.println("Array Size is in negative value...");			 
+		}
+		finally
+		{
+		   System.out.println("Resources will be handled here!!");		   
+		}
+		System.out.println("Main method ended!!!");
+	}
+}
+
+In the above program exception and resourses both are handled because we have a combination of try-catch and finally.
+-----------------------------------------------------------------------
+Limitation of finally block :
+------------------------------
+We have following limitations with finally block 
+
+1) A developer is responsible to write finally block, to close the 
+   resourses manually.
+2) User need to write finally block so It increases the length of the 
+   code.
+3) Any resourse which we want to close inside the finally block, must 
+   be declared outside of try otherwise it will become block level 
+   variable.
+
+package com.ravi.basic;
+
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+public class LimitationOfFinally 
+{
+
+	public static void main(String[] args)
+	{
+		Scanner sc = null;
+	    try
+	    {
+	    	 sc = new Scanner(System.in);
+	    	System.out.println("Enter your Salary :");
+	    	double salary = sc.nextDouble();
+	    	System.out.println("Your Salary is :"+salary);
+	    	
+	    }
+	    catch(InputMismatchException e)
+	    {
+	    	System.err.println("Input is not in a proper format");
+	    }
+	    finally
+	    {
+	    	System.out.println("Inside finally Block");
+	    	sc.close();
+	    }
+
+	}
+
+}
+
+In order to resolve all the limitations of finally block, Java software people has introduced try with resourses from JDK 1.7V.
+-----------------------------------------------------------------------
+15-04-2025
+-----------
+try with Resourses (Automatic Closing Facility)
+------------------------------------------------
+To avoid all the limitation of finally block, Java software people introduced a separate concept i.e try with resources from java 7V onwards.
+
+Case 1:
+-------
+try(resource1 ; resource2)  //Only the resources will be handled
+{
+}
+
+Case 2 :
+----------
+//Resources and Exception both will be  handled
+try(resource1 ; resource2) 
+{                          
+}
+catch(Exception e)
+{
+}
+
+Case 3 :
+----------
+try with resourses enhancement from java 9v
+
+Resourse r1 = new Resourse();
+MyResourse r2 = new MyResourse();
+
+try(r1; r2)
+{
+}
+catch(Exception e)
+{
+}
+
+Note : The Resourse,MuResourse class must implements either from Closeable or AutoCloseable.
+
+There is a predefined interface available in java.lang package called AutoCloseable from JDK 1.7 which contains predefined abstract method i.e close() which throws Exception.
+
+There is another predefined interface available in java.io package called Closeable from JDK 1.5, this Closeable interface is the sub interface for AutoCloseable interface.
+
+public interface java.lang.AutoCloseable
+{
+   public abstract void close() throws Exception;
+}
+public interface java.io.Closeable extends java.lang.AutoCloseable
+{
+   void close() throws IOException;
+}
+
+Whenever we pass any resourse class object as part of try with resources as a parameter then that class must implements either Closeable or AutoCloseable interface so, try with resourses will automatically call the respective class
+close() method even an exception is encountered in the try block.
+
+ResourceClass rc = new ResourceClass();
+try(rc)  
+{                                              
+}                                               
+catch(Exception e)                             
+{                                          
+
+}
+
+This ResourceClass must implements either Closeable or AutoCloseable interface so, try block will automatically call the close() method as well as try block will get the guarantee of close() method support in the respective class.
+
+-----------------------------------------------------------------------
+The following program explains how try block will call the close method of DatabaseResourse and FileResourse class but both the class must implements either from java.io.Closeable OR java.lang.AutoCloseable.
+
+package com.ravi.try_with_resourses;
+
+public class DatabaseResourse implements AutoCloseable
+{
+	@Override
+	public void close() throws Exception 
+	{
+		System.out.println("Database Resourse Closed Successfully!!!");		
+	}
+
+}
+
+package com.ravi.try_with_resourses;
+
+import java.io.Closeable;
+import java.io.IOException;
+
+public class FileResourse implements Closeable
+{
+	@Override
+	public void close() throws IOException 
+	{
+		System.out.println("File Resourse closed Successfully!!!");
+		
+	}
+
+}
+
+package com.ravi.try_with_resourses;
+
+public class TryWithResoursesDemo1 {
+
+	public static void main(String[] args) throws Exception
+	{
+		DatabaseResourse dr = new DatabaseResourse();
+		FileResourse fr = new FileResourse();
+		
+        try(dr; fr)
+        {
+        	System.out.println(10/0);
+        }
+        catch(ArithmeticException e)
+        {
+        	System.out.println(e);
+        }
+     
+
+	}
+
+}
+
+Note : Whenever we use try with resourses then automatically one finally block will be inserted by the compiler to provide closing facility.
+----------------------------------------------------------------------
+try with resourses using Scanner class :
+-----------------------------------------
+package com.ravi.try_with_resourses;
+
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+public class TryWithResoursesDemo2 
+{
+	public static void main(String[] args)
+	{
+		System.out.println("Main Method Started");
+		Scanner sc = new Scanner(System.in);
+		
+		try(sc)
+		{
+			System.out.println("Enter your Age :");
+            int age = sc.nextInt();
+            System.out.println("Your Age is :"+age);            
+		}
+		catch(InputMismatchException e)
+		{
+			System.out.println("Input is not in a valid format");
+		}
+		System.out.println("Main Method Ended");
+	}
+
+}
+-----------------------------------------------------------------------
+16-04-2025
+----------
+Difference between checked and Unchecked Exception :
+-----------------------------------------------------
+Checked Exception :
+----------------------
+A checked exception is a common exception that must be declared or handled by the application code where it is thrown, Here compiler takes very much care and wanted the clarity regarding the exception by saying that, by using this code you may face some problem at runtime and you did not report me how would you handle this situation at runtime are called Checked exception, so provide either try-catch or declare the method as throws.
+
+Except RuntimeException, all the checked exceptions are directly sub class of java.lang.Exception OR Throwable.
+
+Eg:
+---
+FileNotFoundException, IOException, InterruptedException,ClassNotFoundException, SQLException, CloneNotSupportedException, EOFException and so on
+
+Unchecked Exception :-
+--------------------------
+An unchecked exception is rare and any exception that does not need to be declared or handled by the application code where it is thrown, here compiler does not take any care are called unchecked exception.
+
+Unchecked exceptions are directly entertain by JVM because they are rarely occurred in java.
+
+All the un-checked exceptions are sub class of RuntimeException as well as Error and all the sub classes of Error are considered as Unchecked Exception.
+
+RuntimeException is also Unchecked Exception.
+
+Eg:
+---
+ArithmeticException, ArrayIndexOutOfBoundsException, NullPointerException, NumberFormatException, ClassCastException, ArrayStoreException and so on.
+-------------------------------------------------------------
+Some Bullet points regarding Checked and Unchecked :
+-----------------------------------------------------
+Checked Exception :
+------------------
+  1) Common Exception
+  2) Compiler takes care (Will not compile the code)
+  3) Handling is compulsory (try-catch OR throws)
+  4) Directly the sub class of java.lang.Exception OR Throwable
+
+Unchecked Exception :
+----------------------
+  1) Rare Exception
+  2) Comiler will not take any care
+  3) Handling is not Compulsory
+  4) Sub class of RuntimeException OR Error OR Sub class of Error
+---------------------------------------------------------------------
+*Why compiler takes very much care regarding the checked Exception ?
+---------------------------------------------------------------
+As we know Checked Exceptions are very common exception so in case of checked exception "handling is compulsory" because checked Exception depends upon other resources as shown below.
+
+IOException  (we are depending upon System Keyboard OR Files )
+FileNotFoundException(We are depending upon the file)
+InterruptedException (Thread related problem)
+ClassNotFoundException (class related problem)
+SQLException (SQL related or database related problem)
+CloneNotSupportedException (Object is the resourse)
+EOFException(We are depending upon the file)
+
+----------------------------------------------------------------------
+When to provide try-catch or declare the method as throws for Checked Exception :-
+
+try-catch
+----------
+We should provide try-catch if we want to handle the exception in the method where checked exception is encountered, as well as if we want to provide user-defined messages to the client.
+
+throws :
+--------
+throws keyword describes that the method might throw an Exception, It also might not. It is used only at the end of a method declaration to indicate what exceptions it supports OR what type of Exception it might throw which will be handled by JVM or caller method.
+
+Note :- It is always better to use try catch so we can provide appropriate user defined messages to our client.
+
+======================================================================
+17-04-2025
+----------
+Exception propagation [Propagation of Exception Object from Callee to Caller]
+--------------------------------------------------------------
+Whenever we call a method and if the the callee method contains any kind of exception (checked OR Unchecked) and if callee method doesn't contain any kind of exception handling mechanism (try-catch OR throws) then JVM will propagate the exception object to caller method for handling purpose. This is called Exception Propagation.
+
+If the caller method also does not contain any exception handling mechanism then JVM will terminate the method from the stack frame hence the remaining part of the method(m1 method) will not be executed even if we handle the exception in another caller method like main.
+
+If any of the the caller method does not contain any exception handling mechanism then exception will be handled by JVM, JVM has default exception handler which will provide the exception message and terminates the program abnormally.-
+
+//Exception Propagation with unchecked Exception
+
+package com.ravi.exception_demo;
+
+public class ExceptionPropagationWithUnchecked {
+
+	public static void main(String[] args) 
+	{
+		System.out.println("Main method Started!!!!!");
+		try
+		{
+			m1();
+		}
+		catch(ArithmeticException e)
+		{
+			System.out.println("Handled in main method");
+		}
+		System.out.println("Main method Ended!!!!!");
+
+	}
+	public static void m1() 
+	{
+		System.out.println("M1 method Started!!!!!");
+		m2();
+		System.out.println("M1 method Ended!!!!!");
+
+	}
+	public static void m2()
+	{
+		System.out.println("m2 method Started!!!!!");
+		
+		System.out.println(10/0);
+		
+		System.out.println("m2 method Ended!!!!!");
+
+	}
+
+}
+
+//Exception Propagation with Checked Exception
+package com.ravi.exception_demo;
+
+class Sample
+{
+	static
+	{
+		System.out.println("Static Block");
+	}
+}
+
+
+
+public class ExceptionPropagationWithChecked {
+
+	public static void main(String[] args)
+	{
+		System.out.println("Main method Started!!!!!");
+		
+		try
+		{
+			m1();
+		}
+		catch(ClassNotFoundException e)
+		{
+			System.out.println("Handled in main method");
+		}
+		
+		System.out.println("Main method Ended!!!!!");
+
+	}
+	public static void m1() throws ClassNotFoundException
+	{
+		System.out.println("M1 method Started!!!!!");		
+		m2();		
+		System.out.println("M1 method Ended!!!!!");
+
+	}
+	public static void m2() throws ClassNotFoundException
+	{
+		System.out.println("m2 method Started!!!!!");
+				
+		Class.forName("com.ravi.exception_demo.Demo");	
+		
+		System.out.println("m2 method Ended!!!!!");
+
+	}
+}
+---------------------------------------------------------------------
+Calling a method which is throwing checked Exception
+-----------------------------------------------------
+package com.ravi.exception_demo;
+
+public class MethodWithCheckedException {
+
+	public static void main(String[] args) 
+	{
+		try
+		{
+			pune();
+			
+			indore();
+		}
+		catch(ClassNotFoundException e)
+		{
+			System.out.println("Pune Branch exception handled");
+		}
+		catch(Exception e)
+		{
+			
+		}
+	}
+	
+	public static void pune() throws ClassNotFoundException
+	{
+		Class.forName("com.ravi.exception_demo.Demo");
+	}
+	
+	public static void indore() throws Exception
+	{
+		
+	}
+
+}
+
+Note : It is strongly recommended that if, while working with checked exception, method uses throws keyword to skip from the current situation and try to send the exception object to the calledr method then any of the caller method must handle the 
+exception.
+----------------------------------------------------------------------
+Some important rules regarding the checked Exception :
+------------------------------------------------------
+a) If the try block does not throw any checked exception then in the corresponding catch block we can't handle checked exception.It will generate compilation error i.e "exception never thrown from the corresponding try statement"
+
+public class CheckedDemo 
+{
+    public static void main(String [] args) 
+    {
+	   try
+	   {
+		 //try block is not throwing checked exception
+		  //i.e. ClassNotFoundException
+		
+	   }
+	   catch(ClassNotFoundException e) //error
+	   {
+	   }
+   }
+	
+	
+}
+
+
+
+Note :- The above rule is not applicable for Unchecked Exception
+
+               try
+		{
+			
+		}
+		catch(ArithmeticException e)  //Valid
+		{
+			e.printStackTrace();
+		}
+---------------------------------------------------------------------
+b) If the try block does not throw any exception then in the corresponding catch block we can write Exception OR Throwable because both are the super classes for all types of Exception whether it is checked or unchecked.
+
+package com.ravi.method_related_rule;
+
+import java.io.EOFException;
+
+import com.ravi.basic.ThrowException;
+
+public class CatchingWithSuperClass 
+{
+	public static void main(String[] args) 
+	{	
+		
+		try
+		{
+			
+		}
+		catch(Throwable e)  //Exception and Throwable both are allowed
+		{
+          e.printStackTrace();			
+		}
+
+	}
+
+}
+----------------------------------------------------------------------
+c) At the time of method overriding if the super class method does not reporting or throwing checked exception then the overridden method of sub class not allowed to throw checked exception otherwise it will generate compilation error but overridden method can throw Unchecked Exception.
+
+package com.ravi.method_related_rule;
+
+import java.io.EOFException;
+import java.io.IOException;
+
+class Super
+{
+	public void show()  
+	{
+		System.out.println("Super class method not throwing checked Exception");
+	}
+}
+class Sub extends Super
+{
+	@Override
+	public void show()  throws InterruptedException //error
+	{
+		System.out.println("Sub class method should not throw checked Exception");
+	}
+}
+
+public class MethodOverridingWithChecked {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}
+----------------------------------------------------------------------
+d) If the super class method declare with throws keyword to throw a checked exception, then at the time of method overriding, sub class method may or may not use throws keyword.
+               If the Overridden method is also using throws
+ keyword to throw checked exception then it must be either same exception class or sub class, it should not be super class as well as we can't add more exceptions in the overridden method.
+
+package com.ravi.method_related_rule;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+class Base
+{
+	public void show() throws FileNotFoundException
+	{
+		System.out.println("Super class method ");
+	}
+}
+class Derived extends Base
+{
+	public void show() throws IOException //error
+	{
+		System.out.println("Sub class method ");
+	}
+}
+
+public class MethodOverridingWithThrows 
+{
+	public static void main(String[] args) 
+	{
+	  System.out.println("Overridden method may or may not throw checked exception but if it is throwing then must be same or sub class");	
+	}
+
+}
+---------------------------------------------------------------------
+e) Just like return keyword, we can't use throw keyword inside static and non static block  to throw an exception because all initializers must be executed normally.
+
+We can use throw keyword in the protection of try-catch so the code will be executed normally.
+
+public class TryDemo 
+{
+	{
+		try
+		{
+			throw new ArithmeticException();
+		}
+		catch (ArithmeticException e)
+		{
+			System.out.println("Normal Termination");
+		}
+	}
+	
+    public static void main(String [] args) 
+	{
+	   new TryDemo();
+	}
+	
+}
+----------------------------------------------------------------------
+public class TryDemo 
+{
+	static
+	{
+		try
+		{
+			throw new ArithmeticException();
+		}
+		catch (ArithmeticException e)
+		{
+			System.out.println("Normal Termination");
+		}
+	}
+	
+    public static void main(String [] args) 
+	{
+	  
+	}
+	
+}
+----------------------------------------------------------------------
+18-04-2025
+----------
+Nested try block :
+------------------
+If we write a try block inside another try block then it is called Nested try block.
+
+try  //Outer try             
+{
+  statement1;
+     try  //Inner try
+     {
+        statement2;
+     }
+     catch(Exception e) //Inner catch
+     {
+     }
+}
+catch(Exception e) //Outer Catch
+{
+}
+
+The execution of inner try block depends upon outer try block that means if we have an exception in the Outer try block then inner try block will not be executed.
+----------------------------------------------------------------------
+package com.ravi.basic;
+
+public class NestedTryBlock 
+{
+	public static void main(String[] args) 
+	{		
+	      try  //outer try
+	      {
+	    	    String x = "null";
+	    	    System.out.println("It's length is :"+x.length());
+	    	        
+		    	  try  //inner try
+		    	  {
+		    		 String y = "NIT"; 
+		    		 Integer z = Integer.valueOf(y);
+		    		 System.out.println("z value is :"+z);	    				    		  
+		    	  }
+		    	  catch(NumberFormatException e)
+		    	  {
+		    		System.err.println("Number is not in a proper format");  
+		    	  }
+	      }
+	      catch(NullPointerException e)
+	      {
+	    	  System.err.println("Null pointer Problem"); 	    	 
+	      }	      
+	}
+}
+----------------------------------------------------------------------
+Writing try-catch inside catch block :
+---------------------------------------
+We can write try-catch inside catch block but this try-catch block will be exceuted if the catch block will executed that means if we have an exception in the try block.
+
+package com.ravi.basic;
+
+import java.util.Arrays;
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+public class TryWithCatchInsideCatch 
+{	
+	public static void main(String[] args)
+	{
+		Scanner sc = new Scanner(System.in);
+		
+		try(sc)
+		{			
+			System.out.print("Enter your Roll number :");
+			int roll = sc.nextInt();
+			System.out.println("Your Roll is :"+roll);			
+			
+		}	
+		catch(InputMismatchException e)
+		{
+			System.err.println("Provide Valid input!!");
+			
+			try
+			{
+				System.out.println(10/0);
+			}
+			catch(ArithmeticException e1)
+			{
+			  System.err.println("Divide by zero problem");	
+			}
+			
+		}
+		finally
+		{
+			System.out.println("Finally block");
+			
+			try
+			{
+				Object []arr = new String[3];
+				
+				arr[0] = "Scott";
+				arr[1] = "Smith";
+				arr[2] = 90;  //java.lang.ArrayStoreException
+				System.out.println(Arrays.toString(arr));
+			}
+			catch(ArrayStoreException e)
+			{
+				System.err.println("Invalid data inside array");
+			}
+			
+		}
+	}
+
+}
+
+Note : We can write try-catch inside finally block.
+----------------------------------------------------------------------
+try-catch with return statement
+-------------------------------
+If we write try-catch block inside a method and that method is returning some value then we should write return statement in both the places i.e inside the try block as well as inside the catch block.
+
+We can also write return statement inside the finally block only, if the finally block is present. After this return statement we cannot write any kind of statement. (Unrechable)
+
+Always finally block return statement having more priority then try-catch return statement.
+
+package com.ravi.advanced;
+public class ReturnExample
+{
+    public static void main(String[] args) 
+    {     	
+       System.out.println(methodReturningValue());        
+    }	
+	
+	
+	public static int methodReturningValue()
+    {
+        try
+        {
+            System.out.println("Try block");
+            return 10/0;    
+        }
+        catch (Exception e)
+        {
+            System.out.println("catch block");         
+           return 20;  //return statement is compulsory  
+        }
+        
+       //System.out.println("Unreachable code");
+               
+    }
+}
+----------------------------------------------------------------------
+package com.ravi.advanced;
+
+public class ReturnExample1 {
+
+	public static void main(String[] args)
+	{
+		System.out.println(m1());
+	}
+
+	@SuppressWarnings("finally")
+	public static int m1()
+	{	
+		try
+		{
+			System.out.println("Inside try");
+			return 100;
+		}
+		catch(Exception e)
+		{
+			System.out.println("Inside Catch");
+			return 200;
+		}
+		finally
+		{
+			System.out.println("Inside finally");
+			return 300;
+		}
+		
+		// System.out.println("....");   Unreachable line
+	}
+}
+----------------------------------------------------------------------
+Initialization of a variable in try and catch :
+-----------------------------------------------
+A local variable must be initialized inside try block as well as catch block OR at the time of declaration.
+
+If we initialize inside the try block only then from catch block we cannot access local variable value, Here initialization is compulsory inside catch block.
+
+package com.ravi.basic;
+
+public class VariableInitialization 
+{
+	public static void main(String[] args)
+	{      
+	  int x;
+	  
+	  try
+	  {		 
+		  x = 190;
+		  System.out.println(x);
+	  }
+	  catch(Exception e)
+	  {
+		 x = 200;
+		 System.out.println(x);
+	  }
+		
+		
+	}
+
+}
+----------------------------------------------------------------------
+** What is the difference between throw and throws :
+---------------------------------------------------
+throw [THROWING THE EXCEPTION OBJCET EXPLICITLY.]
+------------------------------------------------------
+We should use throw keyword to throw the exception object explicitly, In case of try block, try block is responsible to create the exception object with JVM as well as throw the exception object to the nearest catch block. 
+but if a developer wants to throw exception object explicitly then we use throw keyword.
+
+           throw new ArithmeticException();
+	   throw new LowBalanceException();
+
+after using throw keyword the control will transfer to the nearest catch block so after throw keyword statement, the remaining statements are un-reachable.
+
+throws :- 
+---------
+throws keyword describes that the method might throw an Exception, It also might not. It is used only at the end of a
+method declaration to indicate what exceptions it supports OR what type of Exception it might throw at runtime.
+
+It is used to skip from the current situation so now the execption will be propagated to the caller method OR JVM for 
+handling purpose.
+
+It is mainly used to work with Checked Exception.
+----------------------------------------------------------------------
+19-04-2025
+----------
+Types of exception in java :
+-------------------------------
+Exception can be divided into two types :
+
+1) Predefined Exception OR Built-in Exception
+
+2) Userdefined Exception OR Custom Exception
+
+Predefined Exception :-
+-------------------------
+The Exceptions which are already defined by Java software people for some specific purposes are called predefined Exception or Built-in exception.
+Ex :
+----
+IOException, ArithmeticException and so on
+
+Userdefined Exception :-
+---------------------------
+The exceptions which are defined by user according to their own use and requirement are called User-defined Exception.
+
+Ex:-
+----
+InvalidAgeException, GreaterMarksException
+----------------------------------------------------------------------
+How to develop User-defined Exceptions :
+-----------------------------------------
+As a developer we can develop user-defined checked and user-defined unchecked exception.
+
+If we want to develop checked exception then our user-defined class must extends from java.lang.Exception, on the other hand if we want to develop un-checked exception then our user-defined class must extends from java.lang.RuntimeException.
+
+In the user-defined exception class we should write No argument constructor(in case if we don't want to pass any error message) and we should write parameterized constructor with String errorMessage as a parameter (in case if we  want to pass any error message) with super keyword.
+
+In order to throw the exception object explicitly we should use throw keyword as well as our user-defined class object must be of Throwable type.
+
+---------------------------------------------------------------------
+//Program to create userdefined Checked Exception
+
+package com.ravi.custom_exception;
+
+import java.util.Scanner;
+
+@SuppressWarnings("serial")
+class GreaterMarksException extends Exception //Checked Exception
+{
+	
+	public GreaterMarksException()
+	{		
+	}
+	
+	public GreaterMarksException(String errorMessage)
+	{
+		super(errorMessage);
+	}
+}
+
+
+public class CustomCheckedException {
+
+	public static void main(String[] args) 
+	{
+		Scanner sc = new Scanner(System.in);
+		try(sc)
+		{		
+		  System.out.println("Enter the Marks :");
+		  int marks = sc.nextInt();
+		  validateMarks(marks);
+		}
+		catch(GreaterMarksException e)
+		{
+			System.err.println("Marks must be in between 0 to 100");
+			System.out.println("..............");
+			e.printStackTrace();
+		}
+	}
+	
+	public static void validateMarks(int marks) throws GreaterMarksException
+	{
+		if(marks <0 || marks>100)
+		{
+			throw new GreaterMarksException("Marks is Invalid");
+		}
+		else
+		{
+			System.out.println("Your Marks is :"+marks);
+		}
+		System.out.println("End of Validate Marks");
+	}
+
+}
